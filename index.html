@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown to Rio de Janeiro, 2024</title>
+    <style>
+        body {
+          font-family: Arial, sans-serif;
+          text-align: center;
+          color: white;
+          padding: 50px;
+          background-color: #000; /* Black background */
+        }
+
+        h1 {
+          color: #fff;
+          font-size: 3rem;
+          animation: fadeIn 2s ease-in-out;
+          margin-bottom: 20px;
+          text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        #countdown {
+          font-size: 2.5rem;
+          margin-top: 20px;
+          color: #fff;
+          background-color: rgba(0, 0, 0, 0.5);
+          padding: 20px;
+          border-radius: 10px;
+          display: inline-block;
+          box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4);
+          animation: pulse 1.5s infinite;
+        }
+
+        #audio-controls {
+          margin-top: 20px;
+          animation: fadeIn 2s ease-in-out;
+        }
+
+        #background-image {
+          margin-top: 30px;
+        }
+
+        img {
+          max-width: 100%;
+          height: auto;
+          /* Ensures image retains original size */
+        }
+
+        button {
+          background-color: #007BFF; /* Blue button */
+          color: white;
+          border: none;
+          padding: 15px 30px;
+          font-size: 1.2rem;
+          cursor: pointer;
+          border-radius: 30px;
+          box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4);
+          transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        button:hover {
+          background-color: #e64a19;
+          transform: scale(1.1);
+        }
+
+        button:active {
+          transform: scale(0.9);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+          0% { opacity: 0; }
+          100% { opacity: 1; }
+        }
+
+        @keyframes pulse {
+          0% { transform: scale(1); }
+          50% { transform: scale(1.05); }
+          100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+<h1>Countdown to Rio de Janeiro, 2024</h1>
+<div id="countdown"></div>
+
+<!-- Audio controls with a play/pause button -->
+<div id="audio-controls">
+    <audio id="audio-player" src="magalenha.mp3"></audio>
+    <button id="play-pause-btn">Play</button>
+</div>
+
+<!-- Keep the image in its original size at the bottom -->
+<div id="background-image">
+    <img src="brazil.jpeg" alt="Background Image">
+</div>
+
+<script>
+    // Set the date for the countdown
+    var countdownDate = new Date("December 27, 2024 00:00:00").getTime();
+
+    // Update the countdown every second
+    var countdownFunction = setInterval(function() {
+      // Get the current time
+      var now = new Date().getTime();
+      // Calculate the time difference between now and the countdown date
+      var timeDifference = countdownDate - now;
+      // Time calculations for days, hours, minutes, and seconds
+      var days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+      var hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+      // Display the result in the countdown div
+      document.getElementById("countdown").innerHTML =
+        days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+      // If the countdown is over, display a message
+      if (timeDifference < 0) {
+        clearInterval(countdownFunction);
+        document.getElementById("countdown").innerHTML = "EXPIRED";
+      }
+    }, 1000);
+
+    // Play/pause functionality for the audio
+    var audioPlayer = document.getElementById("audio-player");
+    var playPauseBtn = document.getElementById("play-pause-btn");
+
+    playPauseBtn.addEventListener("click", function() {
+      if (audioPlayer.paused) {
+        audioPlayer.play();
+        playPauseBtn.textContent = "Pause";
+      } else {
+        audioPlayer.pause();
+        playPauseBtn.textContent = "Play";
+      }
+    });
+</script>
+</body>
+</html>

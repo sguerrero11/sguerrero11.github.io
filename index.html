@@ -6,113 +6,119 @@
     <title>Countdown to Rio de Janeiro, 2024</title>
     <style>
         body {
-          font-family: Arial, sans-serif;
-          text-align: center;
-          color: white;
-          padding: 5vw; /* Make padding responsive */
-          background-color: #000; /* Black background */
-          margin: 0; /* Ensure no extra space around the page */
-          height: 100vh; /* Use full viewport height */
-          box-sizing: border-box;
-        }
+              font-family: Arial, sans-serif;
+              text-align: center;
+              color: white;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              align-items: center;
+              height: 100vh;
+              width: 100vw;
+              background-color: #000;
+              overflow: hidden; /* Ensure no scrollbars */
+            }
 
-        h1 {
-          color: #fff;
-          font-size: 8vw; /* Responsive font size */
-          animation: fadeIn 2s ease-in-out;
-          margin-bottom: 2vh;
-          text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-        }
+            h1 {
+              color: #fff;
+              font-size: 3rem; /* Desktop font size */
+              animation: fadeIn 2s ease-in-out;
+              margin-bottom: 2vh;
+              text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            }
 
-        #countdown {
-          font-size: 6vw; /* Responsive font size */
-          margin-top: 2vh;
-          color: #fff;
-          background-color: rgba(0, 0, 0, 0.5);
-          padding: 2vh 2vw; /* Responsive padding */
-          border-radius: 10px;
-          display: inline-block;
-          box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4);
-          animation: pulse 1.5s infinite;
-        }
+            #countdown {
+              font-size: 2.5rem; /* Desktop font size */
+              margin-top: 2vh;
+              margin-bottom: 3vh; /* Added margin for space between countdown and button */
+              color: #fff;
+              background-color: rgba(0, 0, 0, 0.5);
+              padding: 2vh 2vw;
+              border-radius: 10px;
+              display: inline-block;
+              box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4);
+              animation: pulse 1.5s infinite;
+            }
 
-        #audio-controls {
-          margin-top: 3vh;
-          animation: fadeIn 2s ease-in-out;
-        }
+            #audio-controls {
+              margin-top: 3vh;
+              margin-bottom: 4vh; /* Extra spacing before the image */
+              animation: fadeIn 2s ease-in-out;
+            }
 
-        #background-image {
-          margin-top: 5vh;
-        }
+            #background-image img {
+              max-width: 100%;
+              height: auto;
+              max-height: 35vh; /* Reduced height to avoid overflow */
+            }
 
-        img {
-          max-width: 100%;
-          height: auto;
-          /* Ensures image retains original size */
-        }
+            button {
+              background-color: #007BFF;
+              color: white;
+              border: none;
+              padding: 1rem 2rem; /* Desktop padding */
+              font-size: 1.2rem; /* Desktop font size */
+              cursor: pointer;
+              border-radius: 30px;
+              box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4);
+              transition: transform 0.3s ease, background-color 0.3s ease;
+            }
 
-        button {
-          background-color: #007BFF; /* Blue button */
-          color: white;
-          border: none;
-          padding: 2vh 5vw; /* Responsive padding */
-          font-size: 4vw; /* Responsive font size */
-          cursor: pointer;
-          border-radius: 30px;
-          box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4);
-          transition: transform 0.3s ease, background-color 0.3s ease;
-        }
+            button:hover {
+              background-color: #007BFF;
+              transform: scale(1.1) rotate(3deg);
+              animation: shake 0.5s ease;
+            }
 
-        button:hover {
-          background-color: #007BFF;
-          transform: scale(1.1) rotate(3deg); /* Added shake on hover */
-          animation: shake 0.5s ease;
-        }
+            button:active {
+              transform: scale(0.9);
+            }
 
-        button:active {
-          transform: scale(0.9);
-        }
+            /* Animations */
+            @keyframes fadeIn {
+              0% { opacity: 0; }
+              100% { opacity: 1; }
+            }
 
-        /* Animations */
-        @keyframes fadeIn {
-          0% { opacity: 0; }
-          100% { opacity: 1; }
-        }
+            @keyframes pulse {
+              0% { transform: scale(1); }
+              50% { transform: scale(1.05); }
+              100% { transform: scale(1); }
+            }
 
-        @keyframes pulse {
-          0% { transform: scale(1); }
-          50% { transform: scale(1.05); }
-          100% { transform: scale(1); }
-        }
+            @keyframes shake {
+              0% { transform: translate(1px, 1px) rotate(0deg); }
+              10% { transform: translate(-1px, -2px) rotate(-1deg); }
+              20% { transform: translate(-3px, 0px) rotate(1deg); }
+              30% { transform: translate(3px, 2px) rotate(0deg); }
+              40% { transform: translate(1px, -1px) rotate(1deg); }
+              50% { transform: translate(-1px, 2px) rotate(-1deg); }
+              60% { transform: translate(-3px, 1px) rotate(0deg); }
+              70% { transform: translate(3px, 1px) rotate(-1deg); }
+              80% { transform: translate(-1px, -1px) rotate(1deg); }
+              90% { transform: translate(1px, 2px) rotate(0deg); }
+              100% { transform: translate(1px, -2px) rotate(-1deg); }
+            }
 
-        @keyframes shake {
-          0% { transform: translate(1px, 1px) rotate(0deg); }
-          10% { transform: translate(-1px, -2px) rotate(-1deg); }
-          20% { transform: translate(-3px, 0px) rotate(1deg); }
-          30% { transform: translate(3px, 2px) rotate(0deg); }
-          40% { transform: translate(1px, -1px) rotate(1deg); }
-          50% { transform: translate(-1px, 2px) rotate(-1deg); }
-          60% { transform: translate(-3px, 1px) rotate(0deg); }
-          70% { transform: translate(3px, 1px) rotate(-1deg); }
-          80% { transform: translate(-1px, -1px) rotate(1deg); }
-          90% { transform: translate(1px, 2px) rotate(0deg); }
-          100% { transform: translate(1px, -2px) rotate(-1deg); }
-        }
+            /* Responsive adjustments for smaller screens */
+            @media (max-width: 600px) {
+              h1 {
+                font-size: 6vw; /* Mobile font size */
+              }
 
-        /* Media queries for smaller screens */
-        @media (max-width: 600px) {
-          h1 {
-            font-size: 10vw; /* Larger text for small screens */
-          }
+              #countdown {
+                font-size: 5vw; /* Mobile countdown size */
+              }
 
-          #countdown {
-            font-size: 8vw; /* Adjust countdown size */
-          }
+              button {
+                font-size: 4vw; /* Mobile button size */
+                padding: 2vh 4vw; /* Mobile padding */
+              }
 
-          button {
-            font-size: 5vw; /* Adjust button size */
-          }
-        }
+              #background-image img {
+                max-height: 25vh; /* Further reduce image height on mobile */
+              }
+            }
     </style>
 </head>
 <body>
@@ -127,7 +133,7 @@
 
 <!-- Keep the image in its original size at the bottom -->
 <div id="background-image">
-    <img src="brazil.jpeg" alt="Background Image">
+    <img src="brazil.gif" alt="Background Image">
 </div>
 
 <script>

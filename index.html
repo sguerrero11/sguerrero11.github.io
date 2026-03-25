@@ -1,179 +1,1804 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Countdown to Rio de Janeiro, 2024</title>
-    <style>
-        body {
-              font-family: Arial, sans-serif;
-              text-align: center;
-              color: white;
-              display: flex;
-              flex-direction: column;
-              justify-content: center;
-              align-items: center;
-              height: 100vh;
-              width: 100vw;
-              background-color: #000;
-              overflow: hidden; /* Ensure no scrollbars */
-            }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🍹 Cardápio da Festa!</title>
+<link href="https://fonts.googleapis.com/css2?family=Righteous&family=Fredoka+One&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #03040A;
+  --surface: #0C0F1E;
+  --surface2: #111528;
+  --yellow: #FFE14D;
+  --orange: #FF6B2B;
+  --pink: #FF2D78;
+  --cyan: #00E5FF;
+  --green: #39FF14;
+  --purple: #B44FFF;
+  --white: #F5F0FF;
+  --muted: rgba(245,240,255,0.5);
+}
 
-            h1 {
-              color: #fff;
-              font-size: 3rem; /* Desktop font size */
-              animation: fadeIn 2s ease-in-out;
-              margin-bottom: 2vh;
-              text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-            }
+* { margin:0; padding:0; box-sizing:border-box; }
 
-            #countdown {
-              font-size: 2.5rem; /* Desktop font size */
-              margin-top: 2vh;
-              margin-bottom: 3vh; /* Added margin for space between countdown and button */
-              color: #fff;
-              background-color: rgba(0, 0, 0, 0.5);
-              padding: 2vh 2vw;
-              border-radius: 10px;
-              display: inline-block;
-              box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4);
-              animation: pulse 1.5s infinite;
-            }
+body {
+  background: var(--bg);
+  font-family: 'Quicksand', sans-serif;
+  color: var(--white);
+  overflow-x: hidden;
+}
 
-            #audio-controls {
-              margin-top: 3vh;
-              margin-bottom: 4vh; /* Extra spacing before the image */
-              animation: fadeIn 2s ease-in-out;
-            }
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 60px 20px;
+  position: relative;
+  overflow: hidden;
+}
 
-            #background-image img {
-              max-width: 100%;
-              height: auto;
-              max-height: 35vh; /* Reduced height to avoid overflow */
-            }
+.hero-bg {
+  position: absolute; inset: 0; z-index: 0;
+  background:
+    radial-gradient(ellipse 70% 60% at 20% 30%, rgba(180,79,255,0.35) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 80% 70%, rgba(255,45,120,0.3) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 50% 10%, rgba(0,229,255,0.2) 0%, transparent 55%);
+}
 
-            button {
-              background-color: #007BFF;
-              color: white;
-              border: none;
-              padding: 1rem 2rem; /* Desktop padding */
-              font-size: 1.2rem; /* Desktop font size */
-              cursor: pointer;
-              border-radius: 30px;
-              box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4);
-              transition: transform 0.3s ease, background-color 0.3s ease;
-            }
+.hero-grid {
+  position: absolute; inset: 0; z-index: 0;
+  background-image: 
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
 
-            button:hover {
-              background-color: #007BFF;
-              transform: scale(1.1) rotate(3deg);
-              animation: shake 0.5s ease;
-            }
+.scanlines {
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.08) 2px,
+    rgba(0,0,0,0.08) 4px
+  );
+}
 
-            button:active {
-              transform: scale(0.9);
-            }
+.hero-content { position: relative; z-index: 1; }
 
-            /* Animations */
-            @keyframes fadeIn {
-              0% { opacity: 0; }
-              100% { opacity: 1; }
-            }
+.pre-badge {
+  display: inline-block;
+  font-family: 'Righteous', cursive;
+  font-size: 0.75rem;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--cyan);
+  border: 1px solid rgba(0,229,255,0.4);
+  padding: 6px 20px;
+  border-radius: 999px;
+  margin-bottom: 28px;
+  animation: glow-cyan 2s ease-in-out infinite alternate;
+}
 
-            @keyframes pulse {
-              0% { transform: scale(1); }
-              50% { transform: scale(1.05); }
-              100% { transform: scale(1); }
-            }
+@keyframes glow-cyan {
+  from { box-shadow: 0 0 8px rgba(0,229,255,0.3); }
+  to { box-shadow: 0 0 20px rgba(0,229,255,0.7), 0 0 40px rgba(0,229,255,0.3); }
+}
 
-            @keyframes shake {
-              0% { transform: translate(1px, 1px) rotate(0deg); }
-              10% { transform: translate(-1px, -2px) rotate(-1deg); }
-              20% { transform: translate(-3px, 0px) rotate(1deg); }
-              30% { transform: translate(3px, 2px) rotate(0deg); }
-              40% { transform: translate(1px, -1px) rotate(1deg); }
-              50% { transform: translate(-1px, 2px) rotate(-1deg); }
-              60% { transform: translate(-3px, 1px) rotate(0deg); }
-              70% { transform: translate(3px, 1px) rotate(-1deg); }
-              80% { transform: translate(-1px, -1px) rotate(1deg); }
-              90% { transform: translate(1px, 2px) rotate(0deg); }
-              100% { transform: translate(1px, -2px) rotate(-1deg); }
-            }
+.hero h1 {
+  font-family: 'Righteous', cursive;
+  font-size: clamp(3.5rem, 12vw, 9rem);
+  line-height: 0.9;
+  letter-spacing: -2px;
+  margin-bottom: 10px;
+}
 
-            /* Responsive adjustments for smaller screens */
-            @media (max-width: 600px) {
-              h1 {
-                font-size: 6vw; /* Mobile font size */
-              }
+.hero h1 .line1 {
+  display: block;
+  background: linear-gradient(135deg, var(--yellow) 0%, var(--orange) 50%, var(--pink) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  animation: shimmer 4s linear infinite;
+  background-size: 200%;
+}
 
-              #countdown {
-                font-size: 5vw; /* Mobile countdown size */
-              }
+@keyframes shimmer {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
 
-              button {
-                font-size: 4vw; /* Mobile button size */
-                padding: 2vh 4vw; /* Mobile padding */
-              }
+.hero h1 .line2 {
+  display: block;
+  color: var(--white);
+  text-shadow: 0 0 40px rgba(255,225,77,0.5);
+}
 
-              #background-image img {
-                max-height: 25vh; /* Further reduce image height on mobile */
-              }
-            }
-    </style>
+.hero-sub {
+  font-size: clamp(1rem, 3vw, 1.25rem);
+  color: var(--muted);
+  max-width: 520px;
+  margin: 20px auto 40px;
+  line-height: 1.6;
+  font-weight: 600;
+}
+
+.hero-sub strong { color: var(--yellow); }
+
+.hero-party-title {
+  font-family: 'Righteous', cursive;
+  font-size: clamp(1.35rem, 4.5vw, 2.25rem);
+  letter-spacing: 2px;
+  margin: -24px auto 28px;
+  background: linear-gradient(90deg, var(--pink), var(--purple), var(--cyan));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 20px rgba(180,79,255,0.35));
+}
+
+.hero-emojis {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  font-size: 2.5rem;
+  margin-bottom: 32px;
+}
+
+.hero-emojis span {
+  display: inline-block;
+  animation: bounce-emoji 2s ease-in-out infinite;
+}
+.hero-emojis span:nth-child(2) { animation-delay: 0.2s; }
+.hero-emojis span:nth-child(3) { animation-delay: 0.4s; }
+.hero-emojis span:nth-child(4) { animation-delay: 0.6s; }
+.hero-emojis span:nth-child(5) { animation-delay: 0.8s; }
+
+@keyframes bounce-emoji {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-12px) rotate(8deg); }
+}
+
+/* ── AUDIO (play / pause) ── */
+#audio-controls {
+  margin-bottom: 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+#audio-controls .audio-hint {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--muted);
+  letter-spacing: 0.5px;
+}
+
+#play-pause-btn {
+  font-family: 'Righteous', cursive;
+  font-size: 1rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  cursor: pointer;
+  padding: 14px 36px;
+  border-radius: 999px;
+  border: 1px solid rgba(0,229,255,0.45);
+  color: var(--bg);
+  background: linear-gradient(135deg, var(--cyan) 0%, var(--purple) 100%);
+  box-shadow:
+    0 0 20px rgba(0,229,255,0.35),
+    0 8px 24px rgba(0,0,0,0.45);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+}
+
+#play-pause-btn:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow:
+    0 0 28px rgba(255,45,120,0.45),
+    0 12px 32px rgba(0,0,0,0.5);
+  filter: brightness(1.08);
+}
+
+#play-pause-btn:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.scroll-hint {
+  font-family: 'Righteous', cursive;
+  font-size: 0.7rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  animation: pulse-down 2s ease-in-out infinite;
+}
+.scroll-hint::after {
+  content: '▼';
+  font-size: 1rem;
+  color: var(--pink);
+}
+
+@keyframes pulse-down {
+  0%, 100% { opacity: 0.5; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(6px); }
+}
+
+/* ── CATEGORY SECTIONS ── */
+.category-section {
+  padding: 80px 20px 40px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.category-header {
+  text-align: center;
+  margin-bottom: 50px;
+  position: relative;
+}
+
+.category-label {
+  font-family: 'Righteous', cursive;
+  font-size: 0.7rem;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.category-title {
+  font-family: 'Righteous', cursive;
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  line-height: 1;
+}
+
+.category-line {
+  height: 3px;
+  width: 100px;
+  border-radius: 3px;
+  margin: 16px auto 0;
+}
+
+/* COLORS PER CATEGORY */
+.cat-brasil .category-label { color: var(--green); }
+.cat-brasil .category-title { color: var(--green); text-shadow: 0 0 30px rgba(57,255,20,0.4); }
+.cat-brasil .category-line { background: linear-gradient(90deg, transparent, var(--green), transparent); }
+
+.cat-classico .category-label { color: var(--cyan); }
+.cat-classico .category-title { color: var(--cyan); text-shadow: 0 0 30px rgba(0,229,255,0.4); }
+.cat-classico .category-line { background: linear-gradient(90deg, transparent, var(--cyan), transparent); }
+
+.cat-tropical .category-label { color: var(--orange); }
+.cat-tropical .category-title { color: var(--orange); text-shadow: 0 0 30px rgba(255,107,43,0.4); }
+.cat-tropical .category-line { background: linear-gradient(90deg, transparent, var(--orange), transparent); }
+
+.cat-sofisticado .category-label { color: var(--purple); }
+.cat-sofisticado .category-title { color: var(--purple); text-shadow: 0 0 30px rgba(180,79,255,0.4); }
+.cat-sofisticado .category-line { background: linear-gradient(90deg, transparent, var(--purple), transparent); }
+
+.cat-espumante .category-label { color: var(--yellow); }
+.cat-espumante .category-title { color: var(--yellow); text-shadow: 0 0 30px rgba(255,225,77,0.4); }
+.cat-espumante .category-line { background: linear-gradient(90deg, transparent, var(--yellow), transparent); }
+
+.cat-sem-alcool .category-label { color: var(--pink); }
+.cat-sem-alcool .category-title { color: var(--pink); text-shadow: 0 0 30px rgba(255,45,120,0.4); }
+.cat-sem-alcool .category-line { background: linear-gradient(90deg, transparent, var(--pink), transparent); }
+
+/* ── DRINK GRID ── */
+.drink-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.drink-grid.wide {
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+}
+
+/* ── DRINK CARD ── */
+.card {
+  background: var(--surface);
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(255,255,255,0.06);
+  animation: fadeInUp 0.5s ease both;
+}
+
+.card:hover {
+  transform: translateY(-8px) scale(1.01);
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* color accent top */
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+}
+
+/* category color top bars */
+.cat-brasil .card::before { background: linear-gradient(90deg, var(--green), var(--yellow)); }
+.cat-classico .card::before { background: linear-gradient(90deg, var(--cyan), var(--purple)); }
+.cat-tropical .card::before { background: linear-gradient(90deg, var(--orange), var(--pink)); }
+.cat-sofisticado .card::before { background: linear-gradient(90deg, var(--purple), var(--cyan)); }
+.cat-espumante .card::before { background: linear-gradient(90deg, var(--yellow), var(--orange)); }
+.cat-sem-alcool .card::before { background: linear-gradient(90deg, var(--pink), var(--cyan)); }
+
+.card-inner {
+  padding: 24px;
+}
+
+.card-top {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.drink-icon {
+  font-size: 2.8rem;
+  line-height: 1;
+  flex-shrink: 0;
+  filter: drop-shadow(0 4px 10px rgba(0,0,0,0.5));
+  animation: icon-float 3s ease-in-out infinite;
+}
+.card:nth-child(odd) .drink-icon { animation-direction: alternate; }
+.card:nth-child(even) .drink-icon { animation-direction: alternate-reverse; }
+
+@keyframes icon-float {
+  0%, 100% { transform: translateY(0px) rotate(-4deg); }
+  50% { transform: translateY(-6px) rotate(4deg); }
+}
+
+.drink-title-wrap { flex: 1; }
+
+.drink-num {
+  font-family: 'Righteous', cursive;
+  font-size: 0.65rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 2px;
+}
+
+.drink-name {
+  font-family: 'Fredoka One', cursive;
+  font-size: 1.5rem;
+  line-height: 1.1;
+  color: var(--white);
+}
+
+.drink-quip {
+  font-size: 0.78rem;
+  color: var(--muted);
+  font-style: italic;
+  margin-top: 3px;
+  line-height: 1.4;
+}
+
+/* INGREDIENTS */
+.ingredients-label, .steps-label {
+  font-family: 'Righteous', cursive;
+  font-size: 0.6rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ingredients-label::after, .steps-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: rgba(255,255,255,0.1);
+}
+
+.cat-brasil .ingredients-label, .cat-brasil .steps-label { color: var(--green); }
+.cat-classico .ingredients-label, .cat-classico .steps-label { color: var(--cyan); }
+.cat-tropical .ingredients-label, .cat-tropical .steps-label { color: var(--orange); }
+.cat-sofisticado .ingredients-label, .cat-sofisticado .steps-label { color: var(--purple); }
+.cat-espumante .ingredients-label, .cat-espumante .steps-label { color: var(--yellow); }
+.cat-sem-alcool .ingredients-label, .cat-sem-alcool .steps-label { color: var(--pink); }
+
+.ingredients-list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 18px;
+}
+
+.ingredients-list li {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.8);
+  font-weight: 600;
+}
+
+.steps-list {
+  list-style: none;
+  counter-reset: steps;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.steps-list li {
+  counter-increment: steps;
+  padding-left: 30px;
+  position: relative;
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.45;
+}
+
+.steps-list li::before {
+  content: counter(steps);
+  position: absolute;
+  left: 0; top: 0;
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Righteous', cursive;
+  font-size: 0.65rem;
+  color: var(--bg);
+  font-weight: 900;
+}
+
+.cat-brasil .steps-list li::before { background: var(--green); }
+.cat-classico .steps-list li::before { background: var(--cyan); }
+.cat-tropical .steps-list li::before { background: var(--orange); }
+.cat-sofisticado .steps-list li::before { background: var(--purple); }
+.cat-espumante .steps-list li::before { background: var(--yellow); }
+.cat-sem-alcool .steps-list li::before { background: var(--pink); }
+
+/* CARD FOOTER */
+.card-footer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: rgba(0,0,0,0.2);
+  border-top: 1px solid rgba(255,255,255,0.04);
+  font-size: 0.72rem;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+/* ── DIVIDER ── */
+.wave-divider {
+  text-align: center;
+  padding: 20px 0;
+  font-size: 1.5rem;
+  letter-spacing: 12px;
+  opacity: 0.3;
+}
+
+/* ── FINAL FOOTER ── */
+.final-footer {
+  text-align: center;
+  padding: 80px 20px 60px;
+  position: relative;
+  overflow: hidden;
+}
+
+.final-footer-bg {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 80% 80% at 50% 50%, rgba(180,79,255,0.15) 0%, transparent 70%);
+}
+
+.final-footer-content { position: relative; z-index: 1; }
+
+.final-title {
+  font-family: 'Righteous', cursive;
+  font-size: clamp(2rem, 7vw, 5rem);
+  background: linear-gradient(135deg, var(--yellow), var(--orange), var(--pink), var(--purple));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  margin-bottom: 16px;
+  line-height: 1;
+}
+
+.final-sub {
+  font-size: 1rem;
+  color: var(--muted);
+  max-width: 480px;
+  margin: 0 auto 30px;
+  line-height: 1.7;
+  font-weight: 600;
+}
+
+.final-sub strong { color: var(--cyan); }
+
+.party-emoji-row {
+  font-size: 2.5rem;
+  letter-spacing: 16px;
+  margin-bottom: 30px;
+}
+
+.legal {
+  font-size: 0.68rem;
+  color: rgba(255,255,255,0.2);
+  letter-spacing: 0.5px;
+  max-width: 500px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* ── SECTION SEPARATOR ── */
+.sep {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.sep-line {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  margin: 10px 0;
+}
+
+/* ── STAGGER ANIMATIONS ── */
+.card:nth-child(1) { animation-delay: 0.05s; }
+.card:nth-child(2) { animation-delay: 0.10s; }
+.card:nth-child(3) { animation-delay: 0.15s; }
+.card:nth-child(4) { animation-delay: 0.20s; }
+.card:nth-child(5) { animation-delay: 0.25s; }
+.card:nth-child(6) { animation-delay: 0.30s; }
+.card:nth-child(7) { animation-delay: 0.35s; }
+.card:nth-child(8) { animation-delay: 0.40s; }
+.card:nth-child(9) { animation-delay: 0.45s; }
+
+/* ── HOVER GLOW per category ── */
+.cat-brasil .card:hover { box-shadow: 0 20px 50px rgba(57,255,20,0.15); }
+.cat-classico .card:hover { box-shadow: 0 20px 50px rgba(0,229,255,0.15); }
+.cat-tropical .card:hover { box-shadow: 0 20px 50px rgba(255,107,43,0.15); }
+.cat-sofisticado .card:hover { box-shadow: 0 20px 50px rgba(180,79,255,0.15); }
+.cat-espumante .card:hover { box-shadow: 0 20px 50px rgba(255,225,77,0.15); }
+.cat-sem-alcool .card:hover { box-shadow: 0 20px 50px rgba(255,45,120,0.15); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 640px) {
+  .drink-grid { grid-template-columns: 1fr; }
+  .card-top { flex-direction: column; gap: 8px; }
+  .drink-icon { font-size: 2.2rem; }
+  #play-pause-btn {
+    font-size: 0.9rem;
+    padding: 12px 28px;
+    letter-spacing: 2px;
+  }
+}
+</style>
 </head>
 <body>
-<h1>Countdown to Rio de Janeiro, 2024</h1>
-<div id="countdown"></div>
 
-<!-- Audio controls with a play/pause button -->
-<div id="audio-controls">
-    <audio id="audio-player" src="magalenha.mp3"></audio>
-    <button id="play-pause-btn">Play</button>
-</div>
+<!-- ═══════════════════════════ HERO ═══════════════════════════ -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="scanlines"></div>
+  <div class="hero-content">
+    <div class="pre-badge">✦ Cardápio Oficial ✦ Bebidas da Festa ✦</div>
+    <h1>
+      <span class="line1">BORA</span>
+      <span class="line2">BEBER?! 🍹</span>
+    </h1>
+    <p class="hero-party-title">Aniversário da Lelê</p>
+    <p class="hero-sub">
+      Aqui tá o cardápio completo dos drinks da noite.<br>
+      <strong>Escolhe o seu, manda fazer e não reclama depois.</strong><br>
+      <span style="font-size:0.85em; opacity:0.7">Proibido para menores de 18 anos · Beba com moderação · Não dirija</span>
+    </p>
+    <div class="hero-emojis">
+      <span>🍋</span><span>🌴</span><span>🎊</span><span>🥥</span><span>🍓</span>
+    </div>
+    <div id="audio-controls">
+      <audio id="audio-player" src="magalenha.mp3" preload="metadata"></audio>
+      <span class="audio-hint">Trilha da festa</span>
+      <button type="button" id="play-pause-btn">Tocar</button>
+    </div>
+    <div class="scroll-hint">Rola pra baixo</div>
+  </div>
+</section>
 
-<!-- Keep the image in its original size at the bottom -->
-<div id="background-image">
-    <img src="brazil.gif" alt="Background Image">
+<!-- ═══════════════════════════ CAT 1: BRASIL É O Brasil ═══════════════════════════ -->
+<section class="category-section cat-brasil">
+  <div class="category-header">
+    <div class="category-label">🇧🇷 Seção 01</div>
+    <div class="category-title">Brasil É O Brasil</div>
+    <div class="category-line"></div>
+  </div>
+  <div class="drink-grid">
+
+    <!-- Caipirinha -->
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="drink-icon">🍋</div>
+          <div class="drink-title-wrap">
+            <div class="drink-num">Drink 01</div>
+            <div class="drink-name">Caipirinha de Limão</div>
+            <div class="drink-quip">"A rainha eterna. Quem não gosta, não é brasileiro(a)."</div>
+          </div>
+        </div>
+        <div class="ingredients-label">Ingredientes</div>
+        <ul class="ingredients-list">
+          <li>80 ml de cachaça</li>
+          <li>¾ limão taiti fatiado</li>
+          <li>2 col. açúcar</li>
+          <li>Gelo 🧊</li>
+        </ul>
+        <div class="steps-label">Modo de Preparo</div>
+        <ol class="steps-list">
+          <li>Macere o limão com açúcar no copo. Com vontade, não com medo.</li>
+          <li>Adicione o gelo até transbordar otimismo.</li>
+          <li>Derrame a cachaça com orgulho nacional.</li>
+          <li>Mexa, prove, sorria. Repita quantas vezes necessário.</li>
+        </ol>
+      </div>
+      <div class="card-footer">🥃 Copo Old Fashioned &nbsp;·&nbsp; ⏱ 3 min &nbsp;·&nbsp; ⚡ Fácil demais</div>
+    </div>
+
+    <!-- Caipirinha de frutas vermelhas -->
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="drink-icon">🍓</div>
+          <div class="drink-title-wrap">
+            <div class="drink-num">Drink 02</div>
+            <div class="drink-name">Caipirinha de Frutas Vermelhas</div>
+            <div class="drink-quip">"A caipirinha chique que você faz pra impressionar."</div>
+          </div>
+        </div>
+        <div class="ingredients-label">Ingredientes</div>
+        <ul class="ingredients-list">
+          <li>50 ml de cachaça</li>
+          <li>½ xíc. frutas vermelhas</li>
+          <li>2 col. açúcar</li>
+          <li>Gelo 🧊</li>
+        </ul>
+        <div class="steps-label">Modo de Preparo</div>
+        <ol class="steps-list">
+          <li>Macere as frutas vermelhas com açúcar até virar uma bela bagunça roxa.</li>
+          <li>Encha de gelo e despeje a cachaça.</li>
+          <li>Mexa bem. Fica bonita demais pra não fotografar.</li>
+        </ol>
+      </div>
+      <div class="card-footer">🥃 Copo Old Fashioned &nbsp;·&nbsp; ⏱ 4 min &nbsp;·&nbsp; ⚡ Facilíssimo</div>
+    </div>
+
+    <!-- Batida de Coco -->
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="drink-icon">🥥</div>
+          <div class="drink-title-wrap">
+            <div class="drink-num">Drink 03</div>
+            <div class="drink-name">Batida de Coco</div>
+            <div class="drink-quip">"Cremosa, tropical e perigosamente fácil de tomar."</div>
+          </div>
+        </div>
+        <div class="ingredients-label">Ingredientes</div>
+        <ul class="ingredients-list">
+          <li>200 ml de vodka</li>
+          <li>1 lata leite condensado</li>
+          <li>1 vidro leite de coco</li>
+          <li>Gelo 🧊</li>
+        </ul>
+        <div class="steps-label">Modo de Preparo</div>
+        <ol class="steps-list">
+          <li>Joga tudo no liquidificador. Tudo. Sem medo.</li>
+          <li>Bate até ficar cremoso e irresistível.</li>
+          <li>Serve bem gelado. Avisa quantas calorias tem não, por favor.</li>
+        </ol>
+      </div>
+      <div class="card-footer">🥃 Copo Long Drink &nbsp;·&nbsp; ⏱ 5 min &nbsp;·&nbsp; ⚡ Zero habilidade</div>
+    </div>
+
+    <!-- Batida de Frutas -->
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="drink-icon">🍑</div>
+          <div class="drink-title-wrap">
+            <div class="drink-num">Drink 04</div>
+            <div class="drink-name">Batida de Frutas</div>
+            <div class="drink-quip">"Use a fruta que tiver. Funciona sempre. Confie no processo."</div>
+          </div>
+        </div>
+        <div class="ingredients-label">Ingredientes</div>
+        <ul class="ingredients-list">
+          <li>1 fruta da sua escolha</li>
+          <li>50 ml cachaça ou vodka</li>
+          <li>Leite condensado</li>
+          <li>Gelo 🧊</li>
+        </ul>
+        <div class="steps-label">Modo de Preparo</div>
+        <ol class="steps-list">
+          <li>Escolhe a fruta que tiver na geladeira (ou no vizinho).</li>
+          <li>Bate tudo no liquidificador até homogêneo e gelado.</li>
+          <li>Serve. Recebe elogios. Não conta que foi fácil.</li>
+        </ol>
+      </div>
+      <div class="card-footer">🥃 Qualquer copo &nbsp;·&nbsp; ⏱ 5 min &nbsp;·&nbsp; ⚡ Adaptável</div>
+    </div>
+
+  </div>
+</section>
+
+<div class="sep"><div class="sep-line"></div></div>
+<div class="wave-divider">🍹 🍹 🍹 🍹 🍹</div>
+
+<!-- ═══════════════════════════ CAT 2: CLÁSSICOS ═══════════════════════════ -->
+<section class="category-section cat-classico">
+  <div class="category-header">
+    <div class="category-label">🥂 Seção 02</div>
+    <div class="category-title">Os Clássicos Eternos</div>
+    <div class="category-line"></div>
+  </div>
+  <div class="drink-grid">
+
+    <!-- Mojito -->
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="drink-icon">🌿</div>
+          <div class="drink-title-wrap">
+            <div class="drink-num">Drink 05</div>
+            <div class="drink-name">Mojito</div>
+            <div class="drink-quip">"O cubano chique que você vai pedir três seguidos."</div>
+          </div>
+        </div>
+        <div class="ingredients-label">Ingredientes</div>
+        <ul class="ingredients-list">
+          <li>60 ml rum branco</li>
+          <li>1 limão tahiti</li>
+          <li>6–8 folhas hortelã</li>
+          <li>10 ml xarope simples</li>
+          <li>Club soda</li>
+          <li>Gelo 🧊</li>
+        </ul>
+        <div class="steps-label">Modo de Preparo</div>
+        <ol class="steps-list">
+          <li>Macere o limão com açúcar no copo.</li>
+          <li>Adicione a hortelã e aperte levinho — ela é delicada, tá?</li>
+          <li>Encha de gelo, adicione o rum.</li>
+          <li>Complete com club soda. Mexa com elegância. Decore com hortelã e sirva.</li>
+        </ol>
+      </div>
+      <div class="card-footer">🥃 Copo Long Drink &nbsp;·&nbsp; ⏱ 5 min &nbsp;·&nbsp; 🌿 Aromático</div>
+    </div>
+
+    <!-- Margarita -->
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="drink-icon">🍋</div>
+          <div class="drink-title-wrap">
+            <div class="drink-num">Drink 06</div>
+            <div class="drink-name">Margarita Clássica</div>
+            <div class="drink-quip">"Com sal na borda. Sempre com sal na borda. Não vem sem sal."</div>
+          </div>
+        </div>
+        <div class="ingredients-label">Ingredientes</div>
+        <ul class="ingredients-list">
+          <li>60 ml tequila</li>
+          <li>30 ml suco de limão</li>
+          <li>15 ml triple sec / Curaçau</li>
+          <li>Sal para a borda 🧂</li>
+          <li>Gelo 🧊</li>
+        </ul>
+        <div class="steps-label">Modo de Preparo</div>
+        <ol class="steps-list">
+          <li>Molhe a borda da taça com limão e cruze no sal. Isso é lei.</li>
+          <li>Na coqueteleira, junte tequila, limão, triple sec e gelo.</li>
+          <li>Agite com autoridade por 15 segundos.</li>
+          <li>Coe para a taça crustada. Decore com meia fatia de limão.</li>
+        </ol>
+      </div>
+      <div class="card-footer">🥃 Taça Margarita &nbsp;·&nbsp; ⏱ 5 min &nbsp;·&nbsp; 🇲🇽 Viva México!</div>
+    </div>
+
+    <!-- Margarita de Melancia -->
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="drink-icon">🍉</div>
+          <div class="drink-title-wrap">
+            <div class="drink-num">Drink 07</div>
+            <div class="drink-name">Margarita de Melancia</div>
+            <div class="drink-quip">"O verão em estado líquido. Fotografe. Depois beba."</div>
+          </div>
+        </div>
+        <div class="ingredients-label">Ingredientes</div>
+        <ul class="ingredients-list">
+          <li>1½ xíc. melancia em cubos</li>
+          <li>1 dose tequila</li>
+          <li>Suco de 1 limão</li>
+          <li>2 col. chá açúcar</li>
+          <li>Sal 🧂 · Gelo 🧊</li>
+        </ul>
+        <div class="steps-label">Modo de Preparo</div>
+        <ol class="steps-list">
+          <li>Bate melancia, tequila, açúcar e limão no liquidificador.</li>
+          <li>Molhe a borda com limão e cruze no sal. Obrigatório.</li>
+          <li>Adicione gelo e o líquido cor-de-rosa maravilhoso.</li>
+          <li>Fotografe, mande pro stories. Depois beba. Nessa ordem.</li>
+        </ol>
+      </div>
+      <div class="card-footer">🥃 Taça Margarita &nbsp;·&nbsp; ⏱ 7 min &nbsp;·&nbsp; 🍉 Instagramável</div>
+    </div>
+
+    <!-- Cosmopolitan -->
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="drink-icon">🍸</div>
+          <div class="drink-title-wrap">
+            <div class="drink-num">Drink 08</div>
+            <div class="drink-name">Cosmopolitan</div>
+            <div class="drink-quip">"O drink da Carrie Bradshaw. Você merece ser a Carrie hoje."</div>
+          </div>
+        </div>
+        <div class="ingredients-label">Ingredientes</div>
+        <ul class="ingredients-list">
+          <li>50 ml vodka</li>
+          <li>30 ml suco de cranberry</li>
+          <li>15 ml Cointreau</li>
+          <li>15 ml suco de limão</li>
+          <li>5 ml xarope de açúcar</li>
+          <li>Casca de laranja</li>
+        </ul>
+        <div class="steps-label">Modo de Preparo</div>
+        <ol class="steps-list">
+          <li>Joga tudo na coqueteleira com gelo. Tudo mesmo.</li>
+          <li>Agita com energia. Parece um bartender profissional.</li>
+          <li>Coe para taça martini bem gelada, sem deixar o gelo cair.</li>
+          <li>Decore com casca de laranja na borda. Glamour, baby.</li>
+        </ol>
+      </div>
+      <div class="card-footer">🥃 Taça Martini &nbsp;·&nbsp; ⏱ 5 min &nbsp;·&nbsp; 💅 Sofisticado</div>
+    </div>
+
+    <!-- Sex on the Beach -->
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="drink-icon">🏖️</div>
+          <div class="drink-title-wrap">
+            <div class="drink-num">Drink 09</div>
+            <div class="drink-name">Sex on the Beach</div>
+            <div class="drink-quip">"O nome já diz tudo. Não precisa de explicação."</div>
+          </div>
+        </div>
+        <div class="ingredients-label">Ingredientes</div>
+        <ul class="ingredients-list">
+          <li>40 ml vodka</li>
+          <li>20 ml licor de pêssego</li>
+          <li>40 ml suco de laranja</li>
+          <li>40 ml suco de cranberry</li>
+          <li>1 lance groselha</li>
+          <li>Gelo 🧊</li>
+        </ul>
+        <div class="steps-label">Modo de Preparo</div>
+        <ol class="steps-list">
+          <li>Coloca tudo no shaker com gelo (exceto a groselha).</li>
+          <li>Agita. Transfere pro copo long drink com mais gelo.</li>
+          <li>Acrescenta a groselha por cima com um fio lindo.</li>
+          <li>Decora e serve. Vai fazer sucesso, pode ter certeza.</li>
+        </ol>
+      </div>
+      <div class="card-footer">🥃 Copo Long Drink &nbsp;·&nbsp; ⏱ 5 min &nbsp;·&nbsp; 🌅 Colorido</div>
+    </div>
+
+    <!-- Bloody Mary -->
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="drink-icon">🍅</div>
+          <div class="drink-title-wrap">
+            <div class="drink-num">Drink 10</div>
+            <div class="drink-name">Bloody Mary</div>
+            <div class="drink-quip">"O único drink que passa como café da manhã. Não julgamos."</div>
+          </div>
+        </div>
+        <div class="ingredients-label">Ingredientes</div>
+        <ul class="ingredients-list">
+          <li>2 doses vodka</li>
+          <li>Suco de tomate</li>
+          <li>¼ dose suco de limão</li>
+          <li>Molho Worcestershire</li>
+          <li>2 gotas Tabasco</li>
+          <li>Sal, pimenta</li>
+          <li>Talo de aipo · Gelo</li>
+        </ul>
+        <div class="steps-label">Modo de Preparo</div>
+        <ol class="steps-list">
+          <li>Cruze a borda do copo com limão e sal de aipo.</li>
+          <li>Misture limão, molhos Tabasco e Worcestershire + temperos.</li>
+          <li>Adicione a vodka e gelo. Complete com suco de tomate.</li>
+          <li>Mexa bem. Decore com talo de aipo. Diz que é ressaca.</li>
+        </ol>
+      </div>
+      <div class="card-footer">🥃 Copo Highball &nbsp;·&nbsp; ⏱ 7 min &nbsp;·&nbsp; 🌶️ Picante</div>
+    </div>
+
+    <!-- Caipiroska -->
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="drink-icon">🍋</div>
+          <div class="drink-title-wrap">
+            <div class="drink-num">Drink 11</div>
+            <div class="drink-name">Caipiroska de Limão Siciliano</div>
+            <div class="drink-quip">"A caipirinha que virou gringa. Mais suave, mais chique."</div>
+          </div>
+        </div>
+        <div class="ingredients-label">Ingredientes</div>
+        <ul class="ingredients-list">
+          <li>50 ml vodka</li>
+          <li>1 limão siciliano em rodelas</li>
+          <li>2 col. açúcar</li>
+          <li>Gelo 🧊</li>
+        </ul>
+        <div class="steps-label">Modo de Preparo</div>
+        <ol class="steps-list">
+          <li>Macere o limão siciliano com açúcar num copo.</li>
+          <li>Adicione gelo generoso e a vodka.</li>
+          <li>Misture bem. Aromaticamente superior. Fato.</li>
+        </ol>
+      </div>
+      <div class="card-footer">🥃 Copo Old Fashioned &nbsp;·&nbsp; ⏱ 3 min &nbsp;·&nbsp; 🍋 Aromática</div>
+    </div>
+
+    <!-- Cuba Libre -->
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="drink-icon">🥤</div>
+          <div class="drink-title-wrap">
+            <div class="drink-num">Drink 12</div>
+            <div class="drink-name">Cuba Libre</div>
+            <div class="drink-quip">"Rum + Coca. O drink mais democrático da história. Ponto final."</div>
+          </div>
+        </div>
+        <div class="ingredients-label">Ingredientes</div>
+        <ul class="ingredients-list">
+          <li>3/10 rum Carta Blanca</li>
+          <li>7/10 Coca-Cola</li>
+          <li>Suco de ½ limão</li>
+          <li>1 rodela de limão · Gelo</li>
+        </ul>
+        <div class="steps-label">Modo de Preparo</div>
+        <ol class="steps-list">
+          <li>Monte num copo long drink cheio de gelo.</li>
+          <li>Esprema o limão, adicione o rum e a Coca-Cola.</li>
+          <li>Decore com fatia de limão. Beba. Sorria. Simples assim.</li>
+        </ol>
+      </div>
+      <div class="card-footer">🥃 Copo Long Drink &nbsp;·&nbsp; ⏱ 2 min &nbsp;·&nbsp; 🇨🇺 Viva Cuba!</div>
+    </div>
+
+  </div>
+</section>
+
+<div class="sep"><div class="sep-line"></div></div>
+<div class="wave-divider">🌴 🌴 🌴 🌴 🌴</div>
+
+<!-- ═══════════════════════════ CAT 3: TROPICAL VIBES ═══════════════════════════ -->
+<section class="category-section cat-tropical">
+  <div class="category-header">
+    <div class="category-label">🌴 Seção 03</div>
+    <div class="category-title">Tropical Vibes 🥥</div>
+    <div class="category-line"></div>
+  </div>
+  <div class="drink-grid">
+
+    <!-- Piña Colada -->
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="drink-icon">🍍</div>
+          <div class="drink-title-wrap">
+            <div class="drink-num">Drink 13</div>
+            <div class="drink-name">Piña Colada</div>
+            <div class="drink-quip">"A cara do verão. Pode servir dentro de um abacaxi. A gente aprova."</div>
+          </div>
+        </div>
+        <div class="ingredients-label">Ingredientes</div>
+        <ul class="ingredients-list">
+          <li>50 ml rum</li>
+          <li>50 ml leite / creme de coco</li>
+          <li>100 ml suco de abacaxi</li>
+          <li>1 col. açúcar</li>
+          <li>Gelo 🧊</li>
+        </ul>
+        <div class="steps-label">Modo de Preparo</div>
+        <ol class="steps-list">
+          <li>Joga tudo no liquidificador com gelo.</li>
+          <li>Bate até ficar cremoso e tropical.</li>
+          <li>Serve em taça ou dentro de um abacaxi. O segundo é melhor.</li>
+          <li>Decora com cereja e chama de obra de arte.</li>
+        </ol>
+      </div>
+      <div class="card-footer">🥃 Taça ou 🍍 Abacaxi &nbsp;·&nbsp; ⏱ 5 min &nbsp;·&nbsp; 🌺 Cremoso</div>
+    </div>
+
+    <!-- Hurricane -->
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="drink-icon">🌀</div>
+          <div class="drink-title-wrap">
+            <div class="drink-num">Drink 14</div>
+            <div class="drink-name">Hurricane</div>
+            <div class="drink-quip">"Criado em Nova Orleans. Potente. Cuidado com o segundo."</div>
+          </div>
+        </div>
+        <div class="ingredients-label">Ingredientes</div>
+        <ul class="ingredients-list">
+          <li>2 doses rum</li>
+          <li>½ dose suco limão</li>
+          <li>½ dose suco laranja</li>
+          <li>½ dose suco maracujá</li>
+          <li>1 col. chá açúcar</li>
+          <li>1 col. chá Grenadine</li>
+          <li>Cereja · Gelo 🧊</li>
+        </ul>
+        <div class="steps-label">Modo de Preparo</div>
+        <ol class="steps-list">
+          <li>Mistura tudo na coqueteleira com punhado de gelo.</li>
+          <li>Agita até ficar homogêneo e colorido.</li>
+          <li>Serve em copo alto com mais gelo e cereja no topo.</li>
+          <li>Avisa os amigos que é forte.</li>
+        </ol>
+      </div>
+      <div class="card-footer">🥃 Copo Alto &nbsp;·&nbsp; ⏱ 6 min &nbsp;·&nbsp; ⚡ Potente</div>
+    </div>
+
+    <!-- Daiquiri de Abacaxi -->
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="drink-icon">🍍</div>
+          <div class="drink-title-wrap">
+            <div class="drink-num">Drink 15</div>
+            <div class="drink-name">Daiquiri de Abacaxi</div>
+            <div class="drink-quip">"Cubano, tropical e irresistível. Pronto em 3 minutos."</div>
+          </div>
+        </div>
+        <div class="ingredients-label">Ingredientes</div>
+        <ul class="ingredients-list">
+          <li>50 ml rum branco</li>
+          <li>1 xíc. abacaxi em cubos</li>
+          <li>2 col. suco de limão tahiti</li>
+          <li>1 col. açúcar · Gelo 🧊</li>
+        </ul>
+        <div class="steps-label">Modo de Preparo</div>
+        <ol class="steps-list">
+          <li>Bate tudo no liquidificador até ficar homogêneo.</li>
+          <li>Serve imediatamente. Não deixa esquentar, vai estragar a magia.</li>
+        </ol>
+      </div>
+      <div class="card-footer">🥃 Taça Coquetel &nbsp;·&nbsp; ⏱ 3 min &nbsp;·&nbsp; 🌺 Tropical</div>
+    </div>
+
+    <!-- Frozen Rosé -->
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="drink-icon">🍷</div>
+          <div class="drink-title-wrap">
+            <div class="drink-num">Drink 16</div>
+            <div class="drink-name">Frozen Rosé</div>
+            <div class="drink-quip">"O drink da piscina. Instagramável. Delicioso. Perigoso."</div>
+          </div>
+        </div>
+        <div class="ingredients-label">Ingredientes</div>
+        <ul class="ingredients-list">
+          <li>1 garrafa vinho rosé</li>
+          <li>6 copos morangos congelados</li>
+          <li>Suco de 3 limões</li>
+          <li>Açúcar a gosto</li>
+        </ul>
+        <div class="steps-label">Modo de Preparo</div>
+        <ol class="steps-list">
+          <li>Bate tudo no liquidificador até a consistência desejada.</li>
+          <li>Se ficar líquido demais, adiciona mais gelo.</li>
+          <li>Serve nas taças mais lindas que você tiver. Merece.</li>
+        </ol>
+      </div>
+      <div class="card-footer">🥃 Taça de Vinho &nbsp;·&nbsp; ⏱ 5 min &nbsp;·&nbsp; 🌸 Fotogênico</div>
+    </div>
+
+    <!-- Sangria Tropical -->
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="drink-icon">🍊</div>
+          <div class="drink-title-wrap">
+            <div class="drink-num">Drink 17</div>
+            <div class="drink-name">Sangria Tropical</div>
+            <div class="drink-quip">"Espanhola com alma brasileira. Faz em jarra. É festa."</div>
+          </div>
+        </div>
+        <div class="ingredients-label">Ingredientes</div>
+        <ul class="ingredients-list">
+          <li>1 garrafa espumante 750ml</li>
+          <li>1 xíc. abacaxi</li>
+          <li>1 xíc. manga</li>
+          <li>1 xíc. morango</li>
+          <li>1 laranja fatiada</li>
+          <li>5 folhas hortelã · Açúcar</li>
+        </ul>
+        <div class="steps-label">Modo de Preparo</div>
+        <ol class="steps-list">
+          <li>Corte as frutas em cubos e a laranja em rodelas finas.</li>
+          <li>Numa jarra grande, misture frutas, espumante e hortelã.</li>
+          <li>Adicione açúcar, mexa delicado. Geladeira por 20 min.</li>
+          <li>Serve bem gelado. A jarra no centro da mesa faz milagres sociais.</li>
+        </ol>
+      </div>
+      <div class="card-footer">🥃 Jarra Grande &nbsp;·&nbsp; ⏱ 25 min &nbsp;·&nbsp; 👥 Serve a galera</div>
+    </div>
+
+  </div>
+</section>
+
+<div class="sep"><div class="sep-line"></div></div>
+<div class="wave-divider">🥂 🥂 🥂 🥂 🥂</div>
+
+<!-- ═══════════════════════════ CAT 4: GIN & SOFISTICADOS ═══════════════════════════ -->
+<section class="category-section cat-sofisticado">
+  <div class="category-header">
+    <div class="category-label">🎩 Seção 04</div>
+    <div class="category-title">Refinados & Perigosos</div>
+    <div class="category-line"></div>
+  </div>
+  <div class="drink-grid">
+
+    <!-- Dry Martini -->
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="drink-icon">🍸</div>
+          <div class="drink-title-wrap">
+            <div class="drink-num">Drink 18</div>
+            <div class="drink-name">Dry Martini</div>
+            <div class="drink-quip">"Agitado, não misturado. Não precisa mais de explicação."</div>
+          </div>
+        </div>
+        <div class="ingredients-label">Ingredientes</div>
+        <ul class="ingredients-list">
+          <li>50 ml gin</li>
+          <li>50 ml vermute seco</li>
+          <li>2 jatos bitter de laranja</li>
+          <li>Casca de limão</li>
+          <li>1 azeitona verde</li>
+        </ul>
+        <div class="steps-label">Modo de Preparo</div>
+        <ol class="steps-list">
+          <li>Gele a taça de coquetel. É protocolo, não opção.</li>
+          <li>Na coqueteleira com gelo, coloque o vermute e o gin.</li>
+          <li>Mexa com colher de cabo longo. Não agita.</li>
+          <li>Coe para a taça gelada. Torça a casca de limão. Azeitona. Serviço.</li>
+        </ol>
+      </div>
+      <div class="card-footer">🥃 Taça Martini &nbsp;·&nbsp; ⏱ 5 min &nbsp;·&nbsp; 🎩 007 aprovaria</div>
+    </div>
+
+    <!-- Manhattan -->
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="drink-icon">🥃</div>
+          <div class="drink-title-wrap">
+            <div class="drink-num">Drink 19</div>
+            <div class="drink-name">Manhattan</div>
+            <div class="drink-quip">"O drink mais sério desse cardápio. Respeite."</div>
+          </div>
+        </div>
+        <div class="ingredients-label">Ingredientes</div>
+        <ul class="ingredients-list">
+          <li>50 ml uísque</li>
+          <li>20–30 ml vermute tinto</li>
+          <li>Angostura bitter a gosto</li>
+          <li>Cereja para decorar 🍒</li>
+        </ul>
+        <div class="steps-label">Modo de Preparo</div>
+        <ol class="steps-list">
+          <li>Coloca todos os ingredientes na coqueteleira cheia de gelo.</li>
+          <li>Mexa bem — não bate. É um Manhattan, não um shake de morango.</li>
+          <li>Coe em taça martini previamente resfriada.</li>
+          <li>Guarneça com cereja. Beba lentamente. Você merece.</li>
+        </ol>
+      </div>
+      <div class="card-footer">🥃 Taça Martini &nbsp;·&nbsp; ⏱ 5 min &nbsp;·&nbsp; 🥃 Para adultos</div>
+    </div>
+
+    <!-- Old Fashioned -->
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="drink-icon">🥃</div>
+          <div class="drink-title-wrap">
+            <div class="drink-num">Drink 20</div>
+            <div class="drink-name">Old Fashioned</div>
+            <div class="drink-quip">"O drink que os homens de terno pedem em filme. Agora é a sua vez."</div>
+          </div>
+        </div>
+        <div class="ingredients-label">Ingredientes</div>
+        <ul class="ingredients-list">
+          <li>60 ml bourbon</li>
+          <li>1 torrão de açúcar</li>
+          <li>2 dash Angostura</li>
+          <li>Splash de água</li>
+          <li>Casca de laranja</li>
+        </ul>
+        <div class="steps-label">Modo de Preparo</div>
+        <ol class="steps-list">
+          <li>Macere o açúcar com o bitter e água no copo. Com cuidado.</li>
+          <li>Adicione o bourbon e gelo. Um cubo grande, se tiver.</li>
+          <li>Mexa delicadamente. Torça a casca de laranja por cima.</li>
+          <li>Beba em silêncio, com olhar contemplativo.</li>
+        </ol>
+      </div>
+      <div class="card-footer">🥃 Copo Old Fashioned &nbsp;·&nbsp; ⏱ 5 min &nbsp;·&nbsp; 🏛️ Clássico</div>
+    </div>
+
+    <!-- Gin Tônica -->
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="drink-icon">🌿</div>
+          <div class="drink-title-wrap">
+            <div class="drink-num">Drink 21</div>
+            <div class="drink-name">Gin Tônica com Pepino e Hortelã</div>
+            <div class="drink-quip">"O drink da galera chique. Sim, você também pode ser."</div>
+          </div>
+        </div>
+        <div class="ingredients-label">Ingredientes</div>
+        <ul class="ingredients-list">
+          <li>30–50 ml gin</li>
+          <li>60–100 ml água tônica</li>
+          <li>3 rodelas de pepino</li>
+          <li>Folhas de hortelã</li>
+          <li>Framboesa · Gelo 🧊</li>
+        </ul>
+        <div class="steps-label">Modo de Preparo</div>
+        <ol class="steps-list">
+          <li>Enche o copo de gelo. Muito gelo.</li>
+          <li>Adicione o gin.</li>
+          <li>Complete com tônica gelada com cuidado (para preservar as bolhas).</li>
+          <li>Decore com pepino, hortelã e framboesa. É arte, não bebida.</li>
+        </ol>
+      </div>
+      <div class="card-footer">🥃 Copo Balão &nbsp;·&nbsp; ⏱ 4 min &nbsp;·&nbsp; 🌿 Aromático</div>
+    </div>
+
+    <!-- Bee's Knees -->
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="drink-icon">🍯</div>
+          <div class="drink-title-wrap">
+            <div class="drink-num">Drink 22</div>
+            <div class="drink-name">Bee's Knees</div>
+            <div class="drink-quip">"Criado em 1920 no Ritz de Paris. Você está em boa companhia."</div>
+          </div>
+        </div>
+        <div class="ingredients-label">Ingredientes</div>
+        <ul class="ingredients-list">
+          <li>60 ml gin</li>
+          <li>20 ml mel</li>
+          <li>20 ml suco de limão siciliano</li>
+          <li>Gelo 🧊</li>
+        </ul>
+        <div class="steps-label">Modo de Preparo</div>
+        <ol class="steps-list">
+          <li>Junta todos os ingredientes na coqueteleira com gelo.</li>
+          <li>Agita por alguns segundos. Sente o poder.</li>
+          <li>Serve em copo coquetel com casca de limão para enfeitar.</li>
+        </ol>
+      </div>
+      <div class="card-footer">🥃 Taça Coquetel &nbsp;·&nbsp; ⏱ 4 min &nbsp;·&nbsp; 🐝 Anos 20</div>
+    </div>
+
+    <!-- Gin Mule -->
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="drink-icon">🫙</div>
+          <div class="drink-title-wrap">
+            <div class="drink-num">Drink 23</div>
+            <div class="drink-name">Gin Mule</div>
+            <div class="drink-quip">"O Moscow Mule foi pro gym, saiu mais elegante com gin."</div>
+          </div>
+        </div>
+        <div class="ingredients-label">Ingredientes</div>
+        <ul class="ingredients-list">
+          <li>60 ml gin</li>
+          <li>Água · Açúcar mascavo</li>
+          <li>Canela · Gengibre</li>
+          <li>Limão</li>
+          <li>Água com gás · Gelo</li>
+        </ul>
+        <div class="steps-label">Modo de Preparo</div>
+        <ol class="steps-list">
+          <li>Prepare um xarope com água, açúcar mascavo, canela e gengibre.</li>
+          <li>Misture o xarope com o gin e o suco de limão.</li>
+          <li>Adicione gelo e complete com água com gás.</li>
+          <li>Decora e serve. Gengibre é a estrela aqui.</li>
+        </ol>
+      </div>
+      <div class="card-footer">🥃 Caneca de Cobre &nbsp;·&nbsp; ⏱ 10 min &nbsp;·&nbsp; 🫙 Picante</div>
+    </div>
+
+    <!-- Hanky Panky -->
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="drink-icon">🍸</div>
+          <div class="drink-title-wrap">
+            <div class="drink-num">Drink 24</div>
+            <div class="drink-name">Hanky Panky</div>
+            <div class="drink-quip">"O nome é esse mesmo. A gente não inventou."</div>
+          </div>
+        </div>
+        <div class="ingredients-label">Ingredientes</div>
+        <ul class="ingredients-list">
+          <li>50 ml gin</li>
+          <li>50 ml vermute tinto</li>
+          <li>5 ml Fernet</li>
+          <li>Casca de laranja</li>
+        </ul>
+        <div class="steps-label">Modo de Preparo</div>
+        <ol class="steps-list">
+          <li>Mexa gin, vermute e Fernet com gelo na coqueteleira.</li>
+          <li>Coe para taça gelada.</li>
+          <li>Finalize com casca de laranja. É chique. É você.</li>
+        </ol>
+      </div>
+      <div class="card-footer">🥃 Taça Coquetel &nbsp;·&nbsp; ⏱ 4 min &nbsp;·&nbsp; 🍊 Herbal</div>
+    </div>
+
+    <!-- Negroni -->
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="drink-icon">🟠</div>
+          <div class="drink-title-wrap">
+            <div class="drink-num">Drink 25</div>
+            <div class="drink-name">Negroni</div>
+            <div class="drink-quip">"Amargo, sofisticado e viciante. O drink que te define."</div>
+          </div>
+        </div>
+        <div class="ingredients-label">Ingredientes</div>
+        <ul class="ingredients-list">
+          <li>30 ml gin</li>
+          <li>30 ml Campari</li>
+          <li>30 ml vermute rosso</li>
+          <li>Fatia de laranja · Gelo</li>
+        </ul>
+        <div class="steps-label">Modo de Preparo</div>
+        <ol class="steps-list">
+          <li>Mistura tudo no copo com gelo generoso.</li>
+          <li>Mexe delicadamente para integrar os sabores.</li>
+          <li>Finalize com fatia de laranja. Proporcional. Equilibrado. Perfeito.</li>
+        </ol>
+      </div>
+      <div class="card-footer">🥃 Copo Old Fashioned &nbsp;·&nbsp; ⏱ 3 min &nbsp;·&nbsp; 🇮🇹 Italiano</div>
+    </div>
+
+    <!-- Espresso Martini -->
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="drink-icon">☕</div>
+          <div class="drink-title-wrap">
+            <div class="drink-num">Drink 26</div>
+            <div class="drink-name">Espresso Martini</div>
+            <div class="drink-quip">"Porque quem disse que não dá pra misturar café com balada?"</div>
+          </div>
+        </div>
+        <div class="ingredients-label">Ingredientes</div>
+        <ul class="ingredients-list">
+          <li>45 ml vodka</li>
+          <li>30 ml café espresso</li>
+          <li>20 ml licor de café</li>
+          <li>Sal (opcional)</li>
+          <li>3 grãos de café para decorar</li>
+        </ul>
+        <div class="steps-label">Modo de Preparo</div>
+        <ol class="steps-list">
+          <li>Faz o espresso e deixa esfriar um pouco. Paciência.</li>
+          <li>Bate vodka, café e licor na coqueteleira com bastante gelo.</li>
+          <li>Agita MUITO para criar a espuma característica.</li>
+          <li>Coe para taça gelada. Decora com 3 grãos. Instagram pronto.</li>
+        </ol>
+      </div>
+      <div class="card-footer">🥃 Taça Martini &nbsp;·&nbsp; ⏱ 7 min &nbsp;·&nbsp; ☕ Energético</div>
+    </div>
+
+    <!-- Moscow Mule -->
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="drink-icon">🫙</div>
+          <div class="drink-title-wrap">
+            <div class="drink-num">Drink 27</div>
+            <div class="drink-name">Moscow Mule</div>
+            <div class="drink-quip">"A espuma no topo é invenção brasileira! Orgulho nacional, véi."</div>
+          </div>
+        </div>
+        <div class="ingredients-label">Ingredientes</div>
+        <ul class="ingredients-list">
+          <li>60 ml vodka</li>
+          <li>15 ml suco de limão</li>
+          <li>200 ml xarope de gengibre</li>
+          <li>4 col. gengibre ralado</li>
+          <li>Água com gás</li>
+          <li>Chantilly para espuma</li>
+        </ul>
+        <div class="steps-label">Modo de Preparo</div>
+        <ol class="steps-list">
+          <li>Mistura gengibre ralado e xarope de gengibre na caneca.</li>
+          <li>Acrescenta limão, gelo e a vodka.</li>
+          <li>Completa com água com gás para efervescência.</li>
+          <li>Bate chantilly leve e coloca por cima. A espuma brasileira. 🇧🇷</li>
+        </ol>
+      </div>
+      <div class="card-footer">🥃 Caneca de Cobre &nbsp;·&nbsp; ⏱ 8 min &nbsp;·&nbsp; 🇧🇷 Versão BR</div>
+    </div>
+
+  </div>
+</section>
+
+<div class="sep"><div class="sep-line"></div></div>
+<div class="wave-divider">✨ ✨ ✨ ✨ ✨</div>
+
+<!-- ═══════════════════════════ CAT 5: BORBULHAS & ESPUMANTES ═══════════════════════════ -->
+<section class="category-section cat-espumante">
+  <div class="category-header">
+    <div class="category-label">🥂 Seção 05</div>
+    <div class="category-title">Borbulhas da Alegria</div>
+    <div class="category-line"></div>
+  </div>
+  <div class="drink-grid">
+
+    <!-- Aperol Spritz -->
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="drink-icon">🍊</div>
+          <div class="drink-title-wrap">
+            <div class="drink-num">Drink 28</div>
+            <div class="drink-name">Aperol Spritz</div>
+            <div class="drink-quip">"Italiano. Leve. Laranja. Você vai a Roma de dentro do seu copo."</div>
+          </div>
+        </div>
+        <div class="ingredients-label">Ingredientes</div>
+        <ul class="ingredients-list">
+          <li>60 ml Aperol</li>
+          <li>90 ml Prosecco</li>
+          <li>30 ml água com gás</li>
+          <li>1 fatia de laranja · Gelo</li>
+        </ul>
+        <div class="steps-label">Modo de Preparo</div>
+        <ol class="steps-list">
+          <li>Gele a taça no freezer (ou com gelo). Protocolo.</li>
+          <li>Adicione o Aperol, o Prosecco e a água com gás.</li>
+          <li>Mistura delicadamente para não matar as bolhas.</li>
+          <li>Decora com fatia de laranja. Viva Itália!</li>
+        </ol>
+      </div>
+      <div class="card-footer">🥃 Taça de Vinho &nbsp;·&nbsp; ⏱ 4 min &nbsp;·&nbsp; 🇮🇹 Aperitivo</div>
+    </div>
+
+    <!-- Mimosa Tropical -->
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="drink-icon">🌸</div>
+          <div class="drink-title-wrap">
+            <div class="drink-num">Drink 29</div>
+            <div class="drink-name">Mimosa Tropical</div>
+            <div class="drink-quip">"O drink do brunch que vira o drink da noite. Versátil."</div>
+          </div>
+        </div>
+        <div class="ingredients-label">Ingredientes</div>
+        <ul class="ingredients-list">
+          <li>150 ml espumante brut</li>
+          <li>½ taça suco de laranja</li>
+          <li>2 col. suco de abacaxi</li>
+          <li>2 col. suco de pêssego</li>
+          <li>Gelo a gosto</li>
+        </ul>
+        <div class="steps-label">Modo de Preparo</div>
+        <ol class="steps-list">
+          <li>Mistura os sucos numa jarra pequena.</li>
+          <li>Serve nas taças e completa com espumante gelado.</li>
+          <li>Mexe delicadamente. Só delicadamente. Respeita as bolhas.</li>
+        </ol>
+      </div>
+      <div class="card-footer">🥃 Taça de Champanhe &nbsp;·&nbsp; ⏱ 3 min &nbsp;·&nbsp; 🌞 Brunch</div>
+    </div>
+
+    <!-- Kir Royale -->
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="drink-icon">🍷</div>
+          <div class="drink-title-wrap">
+            <div class="drink-num">Drink 30</div>
+            <div class="drink-name">Kir Royale</div>
+            <div class="drink-quip">"Francês, elegante, sofisticado. Oui oui, mon ami."</div>
+          </div>
+        </div>
+        <div class="ingredients-label">Ingredientes</div>
+        <ul class="ingredients-list">
+          <li>½ dose licor de groselha</li>
+          <li>3 doses espumante</li>
+          <li>Frutas vermelhas 🍒</li>
+        </ul>
+        <div class="steps-label">Modo de Preparo</div>
+        <ol class="steps-list">
+          <li>Coloca o licor de groselha na taça primeiro.</li>
+          <li>Adiciona o espumante bem gelado, com cuidado e charme.</li>
+          <li>Decora com frutas vermelhas. Mais simples impossível.</li>
+        </ol>
+      </div>
+      <div class="card-footer">🥃 Flute de Champanhe &nbsp;·&nbsp; ⏱ 2 min &nbsp;·&nbsp; 🇫🇷 Paris</div>
+    </div>
+
+    <!-- Limonada com Espumante -->
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="drink-icon">🍋</div>
+          <div class="drink-title-wrap">
+            <div class="drink-num">Drink 31</div>
+            <div class="drink-name">Limonada com Espumante</div>
+            <div class="drink-quip">"A limonada que cresceu, foi pra faculdade e voltou diferente."</div>
+          </div>
+        </div>
+        <div class="ingredients-label">Ingredientes</div>
+        <ul class="ingredients-list">
+          <li>1 garrafa espumante brut</li>
+          <li>1 xíc. suco limão siciliano</li>
+          <li>2 col. açúcar</li>
+          <li>Rodelas de limão · Gelo</li>
+        </ul>
+        <div class="steps-label">Modo de Preparo</div>
+        <ol class="steps-list">
+          <li>Mistura suco de limão com açúcar até dissolver. Patience.</li>
+          <li>Adiciona gelo e completa com o espumante.</li>
+          <li>Mexe levemente. Serve imediatamente. Não deixa murchar.</li>
+        </ol>
+      </div>
+      <div class="card-footer">🥃 Copo Alto &nbsp;·&nbsp; ⏱ 4 min &nbsp;·&nbsp; 🍋 Refrescante</div>
+    </div>
+
+    <!-- Black Velvet -->
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="drink-icon">🖤</div>
+          <div class="drink-title-wrap">
+            <div class="drink-num">Drink 32</div>
+            <div class="drink-name">Black Velvet</div>
+            <div class="drink-quip">"Cerveja preta + espumante. Parece loucura. É genialidade."</div>
+          </div>
+        </div>
+        <div class="ingredients-label">Ingredientes</div>
+        <ul class="ingredients-list">
+          <li>80 ml cerveja stout</li>
+          <li>80 ml espumante</li>
+        </ul>
+        <div class="steps-label">Modo de Preparo</div>
+        <ol class="steps-list">
+          <li>Adiciona o espumante na taça primeiro.</li>
+          <li>Completa com a cerveja stout devagar, pela lateral.</li>
+          <li>Não mexe. Deixa as camadas existirem. Filosofia em copo.</li>
+        </ol>
+      </div>
+      <div class="card-footer">🥃 Flute &nbsp;·&nbsp; ⏱ 2 min &nbsp;·&nbsp; 🖤 Sofisticado</div>
+    </div>
+
+    <!-- Spritz de Laranja -->
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="drink-icon">🍊</div>
+          <div class="drink-title-wrap">
+            <div class="drink-num">Drink 33</div>
+            <div class="drink-name">Spritz de Laranja</div>
+            <div class="drink-quip">"O happy hour em estado puro. É verão o ano todo nesse copo."</div>
+          </div>
+        </div>
+        <div class="ingredients-label">Ingredientes</div>
+        <ul class="ingredients-list">
+          <li>1 taça espumante brut</li>
+          <li>½ taça suco de laranja</li>
+          <li>1 col. licor de laranja</li>
+          <li>Rodela de laranja · Gelo</li>
+        </ul>
+        <div class="steps-label">Modo de Preparo</div>
+        <ol class="steps-list">
+          <li>Coloca o suco de laranja e o gelo na taça.</li>
+          <li>Completa com espumante e o licor.</li>
+          <li>Mistura levemente e decora. Happy hour liberado.</li>
+        </ol>
+      </div>
+      <div class="card-footer">🥃 Taça de Vinho &nbsp;·&nbsp; ⏱ 3 min &nbsp;·&nbsp; 🌅 Happy Hour</div>
+    </div>
+
+    <!-- Sangria de Rosé -->
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="drink-icon">🌸</div>
+          <div class="drink-title-wrap">
+            <div class="drink-num">Drink 34</div>
+            <div class="drink-name">Sangria de Espumante Rosé</div>
+            <div class="drink-quip">"Rosa por fora, alegria por dentro. Serve na jarra e pronto."</div>
+          </div>
+        </div>
+        <div class="ingredients-label">Ingredientes</div>
+        <ul class="ingredients-list">
+          <li>1 garrafa espumante rosé</li>
+          <li>1 xíc. suco de laranja</li>
+          <li>½ xíc. morangos fatiados</li>
+          <li>1 maçã vermelha picada</li>
+          <li>1 laranja em rodelas</li>
+          <li>½ xíc. licor laranja</li>
+          <li>Hortelã · Gelo</li>
+        </ul>
+        <div class="steps-label">Modo de Preparo</div>
+        <ol class="steps-list">
+          <li>Coloca as frutas na jarra.</li>
+          <li>Adiciona o suco de laranja e o licor.</li>
+          <li>Completa com espumante rosé gelado. Mexe delicado.</li>
+          <li>Serve com gelo e hortelã. A jarra mais linda da festa.</li>
+        </ol>
+      </div>
+      <div class="card-footer">🥃 Jarra &nbsp;·&nbsp; ⏱ 10 min &nbsp;·&nbsp; 🌸 Fotogênica</div>
+    </div>
+
+  </div>
+</section>
+
+<div class="sep"><div class="sep-line"></div></div>
+<div class="wave-divider">🍹 🌿 🍹 🌿 🍹</div>
+
+<!-- ═══════════════════════════ CAT 6: SEM ÁLCOOL ═══════════════════════════ -->
+<section class="category-section cat-sem-alcool">
+  <div class="category-header">
+    <div class="category-label">🌿 Seção 06</div>
+    <div class="category-title">Zero Álcool, Zero Drama</div>
+    <div class="category-line"></div>
+  </div>
+  <div class="drink-grid">
+
+    <!-- Drink de Maracujá -->
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="drink-icon">🏝️</div>
+          <div class="drink-title-wrap">
+            <div class="drink-num">Drink 35</div>
+            <div class="drink-name">Mocktail de Maracujá</div>
+            <div class="drink-quip">"Sem álcool, mas tropical e delicioso. Sem julgamentos aqui."</div>
+          </div>
+        </div>
+        <div class="ingredients-label">Ingredientes</div>
+        <ul class="ingredients-list">
+          <li>½ xíc. polpa de maracujá</li>
+          <li>1 col. mel</li>
+          <li>Água com gás gelada</li>
+          <li>Gelo 🧊</li>
+        </ul>
+        <div class="steps-label">Modo de Preparo</div>
+        <ol class="steps-list">
+          <li>Mistura a polpa de maracujá com o mel no copo.</li>
+          <li>Completa com água com gás e gelo.</li>
+          <li>Mexe levemente. Tropical, refrescante e saudável. Quase.</li>
+        </ol>
+      </div>
+      <div class="card-footer">🥃 Copo Long Drink &nbsp;·&nbsp; ⏱ 3 min &nbsp;·&nbsp; 🌿 Sem álcool</div>
+    </div>
+
+    <!-- Limonada de Manjericão -->
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-top">
+          <div class="drink-icon">🌿</div>
+          <div class="drink-title-wrap">
+            <div class="drink-num">Drink 36</div>
+            <div class="drink-name">Limonada de Manjericão com Gengibre</div>
+            <div class="drink-quip">"Aromática, refrescante e cheia de personalidade. Zero arrependimento."</div>
+          </div>
+        </div>
+        <div class="ingredients-label">Ingredientes</div>
+        <ul class="ingredients-list">
+          <li>1 xíc. suco limão siciliano</li>
+          <li>5 folhas de manjericão</li>
+          <li>1 col. gengibre ralado</li>
+          <li>2 col. açúcar</li>
+          <li>Água com gás · Gelo</li>
+        </ul>
+        <div class="steps-label">Modo de Preparo</div>
+        <ol class="steps-list">
+          <li>Macere o manjericão com o gengibre e o açúcar.</li>
+          <li>Adiciona o suco de limão e mistura bem.</li>
+          <li>Completa com água com gás e gelo. Serve imediatamente.</li>
+        </ol>
+      </div>
+      <div class="card-footer">🥃 Copo Long Drink &nbsp;·&nbsp; ⏱ 5 min &nbsp;·&nbsp; 🌿 Aromático</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════ FOOTER ═══════════════════════════ -->
+<div class="final-footer">
+  <div class="final-footer-bg"></div>
+  <div class="final-footer-content">
+    <div class="party-emoji-row">🎉 🍹 🎊 🥳 🍾</div>
+    <div class="final-title">Saúde, turma!</div>
+    <p class="final-sub">
+      36 drinks, um cardápio completo, zero desculpas.<br>
+      <strong>Beba com moderação, hidrate com água, coma alguma coisa.</strong><br>
+      E chame um táxi, tá? A gente te ama.
+    </p>
+    <p class="legal">
+      ⚠️ Proibido para menores de 18 anos · Não dirija após consumir bebidas alcoólicas<br>
+      Beba com responsabilidade · O consumo excessivo de álcool é prejudicial à saúde
+    </p>
+  </div>
 </div>
 
 <script>
-    // Set the date for the countdown
-    var countdownDate = new Date("December 27, 2024 00:00:00").getTime();
+(function () {
+  var audioPlayer = document.getElementById("audio-player");
+  var playPauseBtn = document.getElementById("play-pause-btn");
+  if (!audioPlayer || !playPauseBtn) return;
 
-    // Update the countdown every second
-    var countdownFunction = setInterval(function() {
-      // Get the current time
-      var now = new Date().getTime();
-      // Calculate the time difference between now and the countdown date
-      var timeDifference = countdownDate - now;
-      // Time calculations for days, hours, minutes, and seconds
-      var days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-      var hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      var minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
-      var seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
-      // Display the result in the countdown div
-      document.getElementById("countdown").innerHTML =
-        days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
-      // If the countdown is over, display a message
-      if (timeDifference < 0) {
-        clearInterval(countdownFunction);
-        document.getElementById("countdown").innerHTML = "EXPIRED";
-      }
-    }, 1000);
+  playPauseBtn.addEventListener("click", function () {
+    if (audioPlayer.paused) {
+      audioPlayer.play();
+      playPauseBtn.textContent = "Pausar";
+    } else {
+      audioPlayer.pause();
+      playPauseBtn.textContent = "Tocar";
+    }
+  });
 
-    // Play/pause functionality for the audio
-    var audioPlayer = document.getElementById("audio-player");
-    var playPauseBtn = document.getElementById("play-pause-btn");
-
-    playPauseBtn.addEventListener("click", function() {
-      if (audioPlayer.paused) {
-        audioPlayer.play();
-        playPauseBtn.textContent = "Pause";
-      } else {
-        audioPlayer.pause();
-        playPauseBtn.textContent = "Play";
-      }
-    });
+  audioPlayer.addEventListener("play", function () {
+    playPauseBtn.textContent = "Pausar";
+  });
+  audioPlayer.addEventListener("pause", function () {
+    playPauseBtn.textContent = "Tocar";
+  });
+})();
 </script>
+
 </body>
 </html>
